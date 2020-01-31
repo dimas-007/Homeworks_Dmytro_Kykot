@@ -1,0 +1,13 @@
+---
+
+   - name: Install NTP
+     yum: name=ntp state=present
+
+   - name: Ensure NTP is running.
+     service: name=ntpd state=started enabled=yes
+
+   - name: Copy NTP configuration
+     template: src=../templates/ntp.conf dest=/etc/ntp.conf
+
+   - name: Restart NTP
+     service: name=ntpd state=restarted

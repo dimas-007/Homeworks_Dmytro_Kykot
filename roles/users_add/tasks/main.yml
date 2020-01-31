@@ -1,0 +1,23 @@
+---
+
+    - name: "Create a labsudo user"
+      user: name=labsudo
+            password='1234567890'
+            shell=/bin/bash
+
+    - name: Add remote authorized key to allow future passwordless logins
+      authorized_key: user=labsudo key="{{ lookup('file', '/root/.ssh/id_rsa.pub') }}"
+    
+    - name: Add to sudoers
+      lineinfile: dest=/etc/sudoers
+                  regexp="labsudo ALL"
+                  line="labsudo ALL=(ALL) ALL"
+                  state=present
+
+    - name: "Create a lab user"
+      user: name=lab
+            password='12345'
+            shell=/bin/bash
+
+    - name: Add remote authorized key to allow future passwordless logins
+      authorized_key: user=lab key="{{ lookup('file', '/root/.ssh/id_rsa.pub') }}"
