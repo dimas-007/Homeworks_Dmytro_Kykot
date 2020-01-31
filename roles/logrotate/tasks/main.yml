@@ -1,0 +1,6 @@
+---
+  - name: Copy logrotate_httpd configuration
+    template: src=../templates/httpd dest=/etc/logrotate.d/
+
+  - name: Copy logrotate_syslog configuration
+    template: src=../templates/syslog dest=/etc/logrotate.d/
